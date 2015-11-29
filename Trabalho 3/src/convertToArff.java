@@ -502,13 +502,19 @@ public class convertToArff {
 		
 		System.out.println("-> Converting positive reviews's words to vector");
 		for(int i=0; i<POSreviews.size(); i++){
-			POSwords.set(i, POSreviews.get(i).split(" "));
+			POSwords.add(POSreviews.get(i).split(" "));
+			for(int j=0; j<POSwords.get(i).length; j++){
+				POSwords.get(i)[j].replaceAll(" ","");
+			}
 		}
 		System.out.println("-> Ok.");
 		
 		System.out.println("-> Converting negative reviews's words to vector");
 		for(int i=0; i<NEGreviews.size(); i++){
-			NEGwords.set(i, NEGreviews.get(i).split(" "));
+			NEGwords.add(NEGreviews.get(i).split(" "));
+			for(int j=0; j<NEGwords.get(i).length; j++){
+				NEGwords.get(i)[j].replaceAll(" ","");
+			}
 		}
 		System.out.println("-> Ok.");
 	}
@@ -545,7 +551,7 @@ public class convertToArff {
 		 
 		System.out.println("Ok.\n");
 		
-		System.out.println(POSreviews.get(10)+"\n");
+		System.out.println("Test example:\n"+POSreviews.get(10)+"\n");
 		
 		System.out.println("Processing...\n");
 		
@@ -554,6 +560,15 @@ public class convertToArff {
 		convertToVector();
 		
 		//System.out.println(POSreviews.get(10)+"\n");
+		System.out.println("Test example result:\n");
+		
+		String x = "";
+		for(int y=0; y<POSwords.get(10).length; y++){
+			x = POSwords.get(10)[y];
+			System.out.println(x);
+		}
+		
+		/*
 		String x = "";
 		for(int i=0; i<POSwords.size(); i++){
 			for(int y=0; y<POSwords.get(i).length; y++){
@@ -561,7 +576,7 @@ public class convertToArff {
 				System.out.println(x);
 			}
 		}
-		
+		*/
 		System.out.println("Ok.\n");
 	}
 
