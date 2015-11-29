@@ -56,6 +56,10 @@ public class convertToArff {
 
 		for(int i=0; i<POSreviews.size(); i++){
 				
+			//convert to lower case
+			POSreviews.set(i, POSreviews.get(i).toLowerCase());
+			NEGreviews.set(i, NEGreviews.get(i).toLowerCase());
+			
 			//Remove numbers
 			POSreviews.set(i, POSreviews.get(i).replaceAll("0", ""));
 			POSreviews.set(i, POSreviews.get(i).replaceAll("1", ""));
@@ -143,9 +147,9 @@ public class convertToArff {
 			
 			for(String s: UselessWordsList){
 				
-				POSreviews.set(i, POSreviews.get(i).replaceAll(s, " "));
+				POSreviews.set(i, POSreviews.get(i).replaceAll(s, ""));
 				
-				NEGreviews.set(i, NEGreviews.get(i).replaceAll(s, " "));
+				NEGreviews.set(i, NEGreviews.get(i).replaceAll(s, ""));
 			}
 			
 		}
@@ -155,321 +159,321 @@ public class convertToArff {
 	private static void UselessWords(){
 		
 		//Articles
-		UselessWordsList.add("a");
-		UselessWordsList.add("an");
-		UselessWordsList.add("the");
+		UselessWordsList.add("\\b"+"a"+"\\b"+"\\b");
+		UselessWordsList.add("\\b"+"an"+"\\b"+"\\b");
+		UselessWordsList.add("\\b"+"the"+"\\b"+"\\b");
 		
 		//Adverbs of manner
-		UselessWordsList.add("carefully");
-		UselessWordsList.add("correctly");
-		UselessWordsList.add("eagerly");  
-		UselessWordsList.add("easily");  
-		UselessWordsList.add("fast");  
-		UselessWordsList.add("loudly");
-		UselessWordsList.add("patiently"); 
-		UselessWordsList.add("quickly");  
-		UselessWordsList.add("quietly");  
-		UselessWordsList.add("well");  
+		UselessWordsList.add("\\b"+"carefully"+"\\b");
+		UselessWordsList.add("\\b"+"correctly"+"\\b");
+		UselessWordsList.add("\\b"+"eagerly"+"\\b");  
+		UselessWordsList.add("\\b"+"easily"+"\\b");  
+		UselessWordsList.add("\\b"+"fast"+"\\b");  
+		UselessWordsList.add("\\b"+"loudly"+"\\b");
+		UselessWordsList.add("\\b"+"patiently"+"\\b"); 
+		UselessWordsList.add("\\b"+"quickly"+"\\b");  
+		UselessWordsList.add("\\b"+"quietly"+"\\b");  
+		UselessWordsList.add("\\b"+"well"+"\\b");  
 		
 		//Adverbs of place
-		UselessWordsList.add("abroad");
-		UselessWordsList.add("anywhere");
-		UselessWordsList.add("downstairs");
-		UselessWordsList.add("here");
-		UselessWordsList.add("home");
-		UselessWordsList.add("in");
-		UselessWordsList.add("nowhere");
-		UselessWordsList.add("out");
-		UselessWordsList.add("outside");
-		UselessWordsList.add("somewhere");
-		UselessWordsList.add("there");
-		UselessWordsList.add("underground");
-		UselessWordsList.add("upstairs");
+		UselessWordsList.add("\\b"+"abroad"+"\\b");
+		UselessWordsList.add("\\b"+"anywhere"+"\\b");
+		UselessWordsList.add("\\b"+"downstairs"+"\\b");
+		UselessWordsList.add("\\b"+"here"+"\\b");
+		UselessWordsList.add("\\b"+"home"+"\\b");
+		UselessWordsList.add("\\b"+"in"+"\\b");
+		UselessWordsList.add("\\b"+"nowhere"+"\\b");
+		UselessWordsList.add("\\b"+"out"+"\\b");
+		UselessWordsList.add("\\b"+"outside"+"\\b");
+		UselessWordsList.add("\\b"+"somewhere"+"\\b");
+		UselessWordsList.add("\\b"+"there"+"\\b");
+		UselessWordsList.add("\\b"+"underground"+"\\b");
+		UselessWordsList.add("\\b"+"upstairs"+"\\b");
 		  
 
 		//Adverbs of purpose
-		UselessWordsList.add("so"); 
-		UselessWordsList.add("so that");  
-		UselessWordsList.add("to");  
-		UselessWordsList.add("in order to");  
-		UselessWordsList.add("because");  
-		UselessWordsList.add("since");  
-		UselessWordsList.add("accidentally");  
-		UselessWordsList.add("intentionally");  
-		UselessWordsList.add("purposely");  
+		UselessWordsList.add("\\b"+"so"+"\\b"); 
+		UselessWordsList.add("\\b"+"so that"+"\\b");  
+		UselessWordsList.add("\\b"+"to"+"\\b");  
+		UselessWordsList.add("\\b"+"in order to"+"\\b");  
+		UselessWordsList.add("\\b"+"because"+"\\b");  
+		UselessWordsList.add("\\b"+"since"+"\\b");  
+		UselessWordsList.add("\\b"+"accidentally"+"\\b");  
+		UselessWordsList.add("\\b"+"intentionally"+"\\b");  
+		UselessWordsList.add("\\b"+"purposely"+"\\b");  
 
 		//Adverbs of frequency
-		UselessWordsList.add("always");  
-		UselessWordsList.add("every");  
-		UselessWordsList.add("never");  
-		UselessWordsList.add("often");  
-		UselessWordsList.add("rarely");  
-		UselessWordsList.add("seldom");  
-		UselessWordsList.add("sometimes");  
-		UselessWordsList.add("usually");  
+		UselessWordsList.add("\\b"+"always"+"\\b");  
+		UselessWordsList.add("\\b"+"every"+"\\b");  
+		UselessWordsList.add("\\b"+"never"+"\\b");  
+		UselessWordsList.add("\\b"+"often"+"\\b");  
+		UselessWordsList.add("\\b"+"rarely"+"\\b");  
+		UselessWordsList.add("\\b"+"seldom"+"\\b");  
+		UselessWordsList.add("\\b"+"sometimes"+"\\b");  
+		UselessWordsList.add("\\b"+"usually"+"\\b");  
 
 		//Adverbs of time
-		UselessWordsList.add("after");  
-		UselessWordsList.add("already");  
-		UselessWordsList.add("during");  
-		UselessWordsList.add("finally");  
-		UselessWordsList.add("just");  
-		UselessWordsList.add("last");  
-		UselessWordsList.add("later");  
-		UselessWordsList.add("next");  
-		UselessWordsList.add("now");  
-		UselessWordsList.add("recently");  
-		UselessWordsList.add("soon");  
-		UselessWordsList.add("then");  
-		UselessWordsList.add("tomorrow");  
-		UselessWordsList.add("when");  
-		UselessWordsList.add("while");  
-		UselessWordsList.add("yesterday");  
+		UselessWordsList.add("\\b"+"after"+"\\b");  
+		UselessWordsList.add("\\b"+"already"+"\\b");  
+		UselessWordsList.add("\\b"+"during"+"\\b");  
+		UselessWordsList.add("\\b"+"finally"+"\\b");  
+		UselessWordsList.add("\\b"+"just"+"\\b");  
+		UselessWordsList.add("\\b"+"last"+"\\b");  
+		UselessWordsList.add("\\b"+"later"+"\\b");  
+		UselessWordsList.add("\\b"+"next"+"\\b");  
+		UselessWordsList.add("\\b"+"now"+"\\b");  
+		UselessWordsList.add("\\b"+"recently"+"\\b");  
+		UselessWordsList.add("\\b"+"soon"+"\\b");  
+		UselessWordsList.add("\\b"+"then"+"\\b");  
+		UselessWordsList.add("\\b"+"tomorrow"+"\\b");  
+		UselessWordsList.add("\\b"+"when"+"\\b");  
+		UselessWordsList.add("\\b"+"while"+"\\b");  
+		UselessWordsList.add("\\b"+"yesterday"+"\\b");  
 
 		//Adverbs of completeness
-		UselessWordsList.add("everywhere");  
-		UselessWordsList.add("here");  
-		UselessWordsList.add("there");  
+		UselessWordsList.add("\\b"+"everywhere"+"\\b");  
+		UselessWordsList.add("\\b"+"here"+"\\b");  
+		UselessWordsList.add("\\b"+"there"+"\\b");  
 
 		//Personal pronouns
-		UselessWordsList.add("i");  
-		UselessWordsList.add("me");  
-		UselessWordsList.add("you");  
-		UselessWordsList.add("she");  
-		UselessWordsList.add("her");  
-		UselessWordsList.add("he");  
-		UselessWordsList.add("him");  
-		UselessWordsList.add("it");  
-		UselessWordsList.add("we");  
-		UselessWordsList.add("us");  
-		UselessWordsList.add("they");  
-		UselessWordsList.add("them");  
+		UselessWordsList.add("\\b"+"i"+"\\b");  
+		UselessWordsList.add("\\b"+"me"+"\\b");  
+		UselessWordsList.add("\\b"+"you"+"\\b");  
+		UselessWordsList.add("\\b"+"she"+"\\b");  
+		UselessWordsList.add("\\b"+"her"+"\\b");  
+		UselessWordsList.add("\\b"+"he"+"\\b");  
+		UselessWordsList.add("\\b"+"him"+"\\b");  
+		UselessWordsList.add("\\b"+"it"+"\\b");  
+		UselessWordsList.add("\\b"+"we"+"\\b");  
+		UselessWordsList.add("\\b"+"us"+"\\b");  
+		UselessWordsList.add("\\b"+"they"+"\\b");  
+		UselessWordsList.add("\\b"+"them"+"\\b");  
 
 		 //Relative pronouns
-		 UselessWordsList.add("that");  
-		 UselessWordsList.add("which");  
-		 UselessWordsList.add("who");  
-		 UselessWordsList.add("whom");  
-		 UselessWordsList.add("whose");  
-		 UselessWordsList.add("whichever");  
-		 UselessWordsList.add("whoever");  
-		 UselessWordsList.add("whomever");  
+		 UselessWordsList.add("\\b"+"that"+"\\b");  
+		 UselessWordsList.add("\\b"+"which"+"\\b");  
+		 UselessWordsList.add("\\b"+"who"+"\\b");  
+		 UselessWordsList.add("\\b"+"whom"+"\\b");  
+		 UselessWordsList.add("\\b"+"whose"+"\\b");  
+		 UselessWordsList.add("\\b"+"whichever"+"\\b");  
+		 UselessWordsList.add("\\b"+"whoever"+"\\b");  
+		 UselessWordsList.add("\\b"+"whomever"+"\\b");  
 
 		 //Demonstrative pronouns
-		 UselessWordsList.add("this");  
-		 UselessWordsList.add("these");  
-		 UselessWordsList.add("that");  
-		 UselessWordsList.add("those");  
+		 UselessWordsList.add("\\b"+"this"+"\\b");  
+		 UselessWordsList.add("\\b"+"these"+"\\b");  
+		 UselessWordsList.add("\\b"+"that"+"\\b");  
+		 UselessWordsList.add("\\b"+"those"+"\\b");  
 
 		 //Indefinite pronouns (keeping those)
 
 		 //Reflexive pronouns
-		 UselessWordsList.add("myself");  
-		 UselessWordsList.add("ourselves");  
-		 UselessWordsList.add("yourself");  
-		 UselessWordsList.add("yourselves");  
-		 UselessWordsList.add("himself");  
-		 UselessWordsList.add("herself");  
-		 UselessWordsList.add("itself");  
-		 UselessWordsList.add("themselves");  
+		 UselessWordsList.add("\\b"+"myself"+"\\b");  
+		 UselessWordsList.add("\\b"+"ourselves"+"\\b");  
+		 UselessWordsList.add("\\b"+"yourself"+"\\b");  
+		 UselessWordsList.add("\\b"+"yourselves"+"\\b");  
+		 UselessWordsList.add("\\b"+"himself"+"\\b");  
+		 UselessWordsList.add("\\b"+"herself"+"\\b");  
+		 UselessWordsList.add("\\b"+"itself"+"\\b");  
+		 UselessWordsList.add("\\b"+"themselves"+"\\b");  
 
 		 //Interrogative pronouns
-		 UselessWordsList.add("what");  
-		 UselessWordsList.add("who");  
-		 UselessWordsList.add("which");  
-		 UselessWordsList.add("whom");  
-		 UselessWordsList.add("whose");  
-		 UselessWordsList.add("where");  
-		 UselessWordsList.add("when");  
-		 UselessWordsList.add("why");  
+		 UselessWordsList.add("\\b"+"what"+"\\b");  
+		 UselessWordsList.add("\\b"+"who"+"\\b");  
+		 UselessWordsList.add("\\b"+"which"+"\\b");  
+		 UselessWordsList.add("\\b"+"whom"+"\\b");  
+		 UselessWordsList.add("\\b"+"whose"+"\\b");  
+		 UselessWordsList.add("\\b"+"where"+"\\b");  
+		 UselessWordsList.add("\\b"+"when"+"\\b");  
+		 UselessWordsList.add("\\b"+"why"+"\\b");  
 
 		 //Possessive pronouns
-		 UselessWordsList.add("my");  
-		 UselessWordsList.add("your");  
-		 UselessWordsList.add("his");  
-		 UselessWordsList.add("her");  
-		 UselessWordsList.add("its"); 
-		 UselessWordsList.add("our");  
-		 UselessWordsList.add("your");  
-		 UselessWordsList.add("their");  
-		 UselessWordsList.add("mine");  
-		 UselessWordsList.add("yours");  
-		 UselessWordsList.add("hers");  
-		 UselessWordsList.add("ours");  
-		 UselessWordsList.add("yours");  
-		 UselessWordsList.add("theirs");  
+		 UselessWordsList.add("\\b"+"my"+"\\b");  
+		 UselessWordsList.add("\\b"+"your"+"\\b");  
+		 UselessWordsList.add("\\b"+"his"+"\\b");  
+		 UselessWordsList.add("\\b"+"her"+"\\b");  
+		 UselessWordsList.add("\\b"+"its"+"\\b"); 
+		 UselessWordsList.add("\\b"+"our"+"\\b");  
+		 UselessWordsList.add("\\b"+"your"+"\\b");  
+		 UselessWordsList.add("\\b"+"their"+"\\b");  
+		 UselessWordsList.add("\\b"+"mine"+"\\b");  
+		 UselessWordsList.add("\\b"+"yours"+"\\b");  
+		 UselessWordsList.add("\\b"+"hers"+"\\b");  
+		 UselessWordsList.add("\\b"+"ours"+"\\b");  
+		 UselessWordsList.add("\\b"+"yours"+"\\b");  
+		 UselessWordsList.add("\\b"+"theirs"+"\\b");  
 
 		 //Prepositions
-		 UselessWordsList.add("aboard");  
-		 UselessWordsList.add("about"); 
-		 UselessWordsList.add("above");  
-		 UselessWordsList.add("across");  
-		 UselessWordsList.add("after");  
-		 UselessWordsList.add("against");  
-		 UselessWordsList.add("along");  
-		 UselessWordsList.add("amid"); 
-		 UselessWordsList.add("among");  
-		 UselessWordsList.add("anti");  
-		 UselessWordsList.add("around");  
-		 UselessWordsList.add("as");  
-		 UselessWordsList.add("at");  
-		 UselessWordsList.add("before"); 
-		 UselessWordsList.add("behind");  
-		 UselessWordsList.add("below"); 
-		 UselessWordsList.add("beneath");  
-		 UselessWordsList.add("beside");  
-		 UselessWordsList.add("besides");  
-		 UselessWordsList.add("between");  
-		 UselessWordsList.add("beyond");  
-		 UselessWordsList.add("but");  
-		 UselessWordsList.add("by");  
-		 UselessWordsList.add("concerning");  
-		 UselessWordsList.add("considering");  
-		 UselessWordsList.add("despite"); 
-		 UselessWordsList.add("down"); 
-		 UselessWordsList.add("during");  
-		 UselessWordsList.add("except");  
-		 UselessWordsList.add("excepting");  
-		 UselessWordsList.add("excluding");  
-		 UselessWordsList.add("following");  
-		 UselessWordsList.add("for");  
-		 UselessWordsList.add("from");  
-		 UselessWordsList.add("in");  
-		 UselessWordsList.add("inside");  
-		 UselessWordsList.add("into"); 
-		 UselessWordsList.add("like"); 
-		 UselessWordsList.add("minus"); 
-		 UselessWordsList.add("near"); 
-		 UselessWordsList.add("of"); 
-		 UselessWordsList.add("off"); 
-		 UselessWordsList.add("on"); 
-		 UselessWordsList.add("onto"); 
-		 UselessWordsList.add("opposite"); 
-		 UselessWordsList.add("outside"); 
-		 UselessWordsList.add("over");  
-		 UselessWordsList.add("past");  
-		 UselessWordsList.add("per"); 
-		 UselessWordsList.add("plus");  
-		 UselessWordsList.add("regarding");  
-		 UselessWordsList.add("round");  
-		 UselessWordsList.add("save");  
-		 UselessWordsList.add("since");  
-		 UselessWordsList.add("than");  
-		 UselessWordsList.add("through");  
-		 UselessWordsList.add("to");  
-		 UselessWordsList.add("toward");  
-		 UselessWordsList.add("towards");  
-		 UselessWordsList.add("under");  
-		 UselessWordsList.add("underneath");  
-		 UselessWordsList.add("unlike");  
-		 UselessWordsList.add("until");  
-		 UselessWordsList.add("up"); 
-		 UselessWordsList.add("upon"); 
-		 UselessWordsList.add("versus");  
-		 UselessWordsList.add("via");  
-		 UselessWordsList.add("with");  
-		 UselessWordsList.add("within");  
-		 UselessWordsList.add("without");  
+		 UselessWordsList.add("\\b"+"aboard"+"\\b");  
+		 UselessWordsList.add("\\b"+"about"+"\\b"); 
+		 UselessWordsList.add("\\b"+"above"+"\\b");  
+		 UselessWordsList.add("\\b"+"across"+"\\b");  
+		 UselessWordsList.add("\\b"+"after"+"\\b");  
+		 UselessWordsList.add("\\b"+"against"+"\\b");  
+		 UselessWordsList.add("\\b"+"along"+"\\b");  
+		 UselessWordsList.add("\\b"+"amid"+"\\b"); 
+		 UselessWordsList.add("\\b"+"among"+"\\b");  
+		 UselessWordsList.add("\\b"+"anti"+"\\b");  
+		 UselessWordsList.add("\\b"+"around"+"\\b");  
+		 UselessWordsList.add("\\b"+"as"+"\\b");  
+		 UselessWordsList.add("\\b"+"at"+"\\b");  
+		 UselessWordsList.add("\\b"+"before"+"\\b"); 
+		 UselessWordsList.add("\\b"+"behind"+"\\b");  
+		 UselessWordsList.add("\\b"+"below"+"\\b"); 
+		 UselessWordsList.add("\\b"+"beneath"+"\\b");  
+		 UselessWordsList.add("\\b"+"beside"+"\\b");  
+		 UselessWordsList.add("\\b"+"besides"+"\\b");  
+		 UselessWordsList.add("\\b"+"between"+"\\b");  
+		 UselessWordsList.add("\\b"+"beyond"+"\\b");  
+		 UselessWordsList.add("\\b"+"but"+"\\b");  
+		 UselessWordsList.add("\\b"+"by"+"\\b");  
+		 UselessWordsList.add("\\b"+"concerning"+"\\b");  
+		 UselessWordsList.add("\\b"+"considering"+"\\b");  
+		 UselessWordsList.add("\\b"+"despite"+"\\b"); 
+		 UselessWordsList.add("\\b"+"down"+"\\b"); 
+		 UselessWordsList.add("\\b"+"during"+"\\b");  
+		 UselessWordsList.add("\\b"+"except"+"\\b");  
+		 UselessWordsList.add("\\b"+"excepting"+"\\b");  
+		 UselessWordsList.add("\\b"+"excluding"+"\\b");  
+		 UselessWordsList.add("\\b"+"following"+"\\b");  
+		 UselessWordsList.add("\\b"+"for"+"\\b");  
+		 UselessWordsList.add("\\b"+"from"+"\\b");  
+		 UselessWordsList.add("\\b"+"in"+"\\b");  
+		 UselessWordsList.add("\\b"+"inside"+"\\b");  
+		 UselessWordsList.add("\\b"+"into"+"\\b"); 
+		 UselessWordsList.add("\\b"+"like"+"\\b"); 
+		 UselessWordsList.add("\\b"+"minus"+"\\b"); 
+		 UselessWordsList.add("\\b"+"near"+"\\b"); 
+		 UselessWordsList.add("\\b"+"of"+"\\b"); 
+		 UselessWordsList.add("\\b"+"off"+"\\b"); 
+		 UselessWordsList.add("\\b"+"on"+"\\b"); 
+		 UselessWordsList.add("\\b"+"onto"+"\\b"); 
+		 UselessWordsList.add("\\b"+"opposite"+"\\b"); 
+		 UselessWordsList.add("\\b"+"outside"+"\\b"); 
+		 UselessWordsList.add("\\b"+"over"+"\\b");  
+		 UselessWordsList.add("\\b"+"past"+"\\b");  
+		 UselessWordsList.add("\\b"+"per"+"\\b"); 
+		 UselessWordsList.add("\\b"+"plus"+"\\b");  
+		 UselessWordsList.add("\\b"+"regarding"+"\\b");  
+		 UselessWordsList.add("\\b"+"round"+"\\b");  
+		 UselessWordsList.add("\\b"+"save"+"\\b");  
+		 UselessWordsList.add("\\b"+"since"+"\\b");  
+		 UselessWordsList.add("\\b"+"than"+"\\b");  
+		 UselessWordsList.add("\\b"+"through"+"\\b");  
+		 UselessWordsList.add("\\b"+"to"+"\\b");  
+		 UselessWordsList.add("\\b"+"toward"+"\\b");  
+		 UselessWordsList.add("\\b"+"towards"+"\\b");  
+		 UselessWordsList.add("\\b"+"under"+"\\b");  
+		 UselessWordsList.add("\\b"+"underneath"+"\\b");  
+		 UselessWordsList.add("\\b"+"unlike"+"\\b");  
+		 UselessWordsList.add("\\b"+"until"+"\\b");  
+		 UselessWordsList.add("\\b"+"up"+"\\b"); 
+		 UselessWordsList.add("\\b"+"upon"+"\\b"); 
+		 UselessWordsList.add("\\b"+"versus"+"\\b");  
+		 UselessWordsList.add("\\b"+"via"+"\\b");  
+		 UselessWordsList.add("\\b"+"with"+"\\b");  
+		 UselessWordsList.add("\\b"+"within"+"\\b");  
+		 UselessWordsList.add("\\b"+"without"+"\\b");  
 
 		 //Verbs
-		 UselessWordsList.add("be"); 
-		 UselessWordsList.add("is");  
-		 UselessWordsList.add("are");  
-		 UselessWordsList.add("was");  
-		 UselessWordsList.add("were");  
-		 UselessWordsList.add("will");  
-		 UselessWordsList.add("have");  
-		 UselessWordsList.add("has");  
-		 UselessWordsList.add("had");  
-		 UselessWordsList.add("hadn");  
-		 UselessWordsList.add("haven");   
-		 UselessWordsList.add("hasn");  
-		 UselessWordsList.add("do");  
-		 UselessWordsList.add("don"); 
-		 UselessWordsList.add("does"); 
-		 UselessWordsList.add("doesn");  
-		 UselessWordsList.add("did");  
+		 UselessWordsList.add("\\b"+"be"+"\\b"); 
+		 UselessWordsList.add("\\b"+"is"+"\\b");  
+		 UselessWordsList.add("\\b"+"are"+"\\b");  
+		 UselessWordsList.add("\\b"+"was"+"\\b");  
+		 UselessWordsList.add("\\b"+"were"+"\\b");  
+		 UselessWordsList.add("\\b"+"will"+"\\b");  
+		 UselessWordsList.add("\\b"+"have"+"\\b");  
+		 UselessWordsList.add("\\b"+"has"+"\\b");  
+		 UselessWordsList.add("\\b"+"had"+"\\b");  
+		 UselessWordsList.add("\\b"+"hadn"+"\\b");  
+		 UselessWordsList.add("\\b"+"haven"+"\\b");   
+		 UselessWordsList.add("\\b"+"hasn"+"\\b");  
+		 UselessWordsList.add("\\b"+"do"+"\\b");  
+		 UselessWordsList.add("\\b"+"don"+"\\b"); 
+		 UselessWordsList.add("\\b"+"does"+"\\b"); 
+		 UselessWordsList.add("\\b"+"doesn"+"\\b");  
+		 UselessWordsList.add("\\b"+"did"+"\\b");  
 
-		 UselessWordsList.add("come");  
-		 UselessWordsList.add("came");  
-		 UselessWordsList.add("make");  
-		 UselessWordsList.add("made");  
-		 UselessWordsList.add("say");  
-		 UselessWordsList.add("said");  
-		 UselessWordsList.add("go"); 
-		 UselessWordsList.add("went"); 
-		 UselessWordsList.add("gone"); 
-		 UselessWordsList.add("get"); 
-		 UselessWordsList.add("got"); 
-		 UselessWordsList.add("gotten"); 
-		 UselessWordsList.add("know"); 
-		 UselessWordsList.add("knew");  
-		 UselessWordsList.add("known");  
-		 UselessWordsList.add("see");  
-		 UselessWordsList.add("saw");  
-		 UselessWordsList.add("seen");  
-		 UselessWordsList.add("think");  
-		 UselessWordsList.add("thought");  
-		 UselessWordsList.add("take");  
-		 UselessWordsList.add("took");  
-		 UselessWordsList.add("taken"); 
-		 UselessWordsList.add("use");  
-		 UselessWordsList.add("used"); 
-		 UselessWordsList.add("watch"); 
-		 UselessWordsList.add("watched"); 
-		 UselessWordsList.add("want"); 
-		 UselessWordsList.add("wanted"); 
+		 UselessWordsList.add("\\b"+"come"+"\\b");  
+		 UselessWordsList.add("\\b"+"came"+"\\b");  
+		 UselessWordsList.add("\\b"+"make"+"\\b");  
+		 UselessWordsList.add("\\b"+"made"+"\\b");  
+		 UselessWordsList.add("\\b"+"say"+"\\b");  
+		 UselessWordsList.add("\\b"+"said"+"\\b");  
+		 UselessWordsList.add("\\b"+"go"+"\\b"); 
+		 UselessWordsList.add("\\b"+"went"+"\\b"); 
+		 UselessWordsList.add("\\b"+"gone"+"\\b"); 
+		 UselessWordsList.add("\\b"+"get"+"\\b"); 
+		 UselessWordsList.add("\\b"+"got"+"\\b"); 
+		 UselessWordsList.add("\\b"+"gotten"+"\\b"); 
+		 UselessWordsList.add("\\b"+"know"+"\\b"); 
+		 UselessWordsList.add("\\b"+"knew"+"\\b");  
+		 UselessWordsList.add("\\b"+"known"+"\\b");  
+		 UselessWordsList.add("\\b"+"see"+"\\b");  
+		 UselessWordsList.add("\\b"+"saw"+"\\b");  
+		 UselessWordsList.add("\\b"+"seen"+"\\b");  
+		 UselessWordsList.add("\\b"+"think"+"\\b");  
+		 UselessWordsList.add("\\b"+"thought"+"\\b");  
+		 UselessWordsList.add("\\b"+"take"+"\\b");  
+		 UselessWordsList.add("\\b"+"took"+"\\b");  
+		 UselessWordsList.add("\\b"+"taken"+"\\b"); 
+		 UselessWordsList.add("\\b"+"use"+"\\b");  
+		 UselessWordsList.add("\\b"+"used"+"\\b"); 
+		 UselessWordsList.add("\\b"+"watch"+"\\b"); 
+		 UselessWordsList.add("\\b"+"watched"+"\\b"); 
+		 UselessWordsList.add("\\b"+"want"+"\\b"); 
+		 UselessWordsList.add("\\b"+"wanted"+"\\b"); 
 
 		 //Modal verbs
-		 UselessWordsList.add("can"); 
-		 UselessWordsList.add("could"); 
-		 UselessWordsList.add("couldn"); 
-		 UselessWordsList.add("may");  
-		 UselessWordsList.add("might");  
-		 UselessWordsList.add("must");  
-		 UselessWordsList.add("mustn");  
-		 UselessWordsList.add("shall");  
-		 UselessWordsList.add("should");  
-		 UselessWordsList.add("shouldn");  
-		 UselessWordsList.add("ought to");  
-		 UselessWordsList.add("would");  
+		 UselessWordsList.add("\\b"+"can"+"\\b"); 
+		 UselessWordsList.add("\\b"+"could"+"\\b"); 
+		 UselessWordsList.add("\\b"+"couldn"+"\\b"); 
+		 UselessWordsList.add("\\b"+"may"+"\\b");  
+		 UselessWordsList.add("\\b"+"might"+"\\b");  
+		 UselessWordsList.add("\\b"+"must"+"\\b");  
+		 UselessWordsList.add("\\b"+"mustn"+"\\b");  
+		 UselessWordsList.add("\\b"+"shall"+"\\b");  
+		 UselessWordsList.add("\\b"+"should"+"\\b");  
+		 UselessWordsList.add("\\b"+"shouldn"+"\\b");  
+		 UselessWordsList.add("\\b"+"ought to"+"\\b");  
+		 UselessWordsList.add("\\b"+"would"+"\\b");  
 
 		 //Conjunctions
-		 UselessWordsList.add("and");  
-		 UselessWordsList.add("or");  
-		 UselessWordsList.add("for");  
-		 UselessWordsList.add("yet");  
-		 UselessWordsList.add("but");   
-		 UselessWordsList.add("if");  
+		 UselessWordsList.add("\\b"+"and"+"\\b");  
+		 UselessWordsList.add("\\b"+"or"+"\\b");  
+		 UselessWordsList.add("\\b"+"for"+"\\b");  
+		 UselessWordsList.add("\\b"+"yet"+"\\b");  
+		 UselessWordsList.add("\\b"+"but"+"\\b");   
+		 UselessWordsList.add("\\b"+"if"+"\\b");  
 
 		 //Substantives
-		 UselessWordsList.add("film"); 
-		 UselessWordsList.add("films");  
-		 UselessWordsList.add("movie");  
-		 UselessWordsList.add("movies"); 
-		 UselessWordsList.add("story");   
-		 UselessWordsList.add("people");   
-		 UselessWordsList.add("time");   
+		 UselessWordsList.add("\\b"+"film"+"\\b"); 
+		 UselessWordsList.add("\\b"+"films"+"\\b");  
+		 UselessWordsList.add("\\b"+"movie"+"\\b");  
+		 UselessWordsList.add("\\b"+"movies"+"\\b"); 
+		 UselessWordsList.add("\\b"+"story"+"\\b");   
+		 UselessWordsList.add("\\b"+"people"+"\\b");   
+		 UselessWordsList.add("\\b"+"time"+"\\b");   
 
 		 //Others
-		 UselessWordsList.add("mr");   
-		 UselessWordsList.add("sr");   
-		 UselessWordsList.add("one");   
-		 UselessWordsList.add("all");  
-		 UselessWordsList.add("no");   
-		 UselessWordsList.add("not");   
-		 UselessWordsList.add("some");   
-		 UselessWordsList.add("really"); 
-		 UselessWordsList.add("more");  
-		 UselessWordsList.add("only");  
-		 UselessWordsList.add("much");  
-		 UselessWordsList.add("been");  
-		 UselessWordsList.add("good");  
-		 UselessWordsList.add("how");   
-		 UselessWordsList.add("first");   
-		 UselessWordsList.add("other");   
-		 UselessWordsList.add("too");   
-		 UselessWordsList.add("way");  
+		 UselessWordsList.add("\\b"+"mr"+"\\b");   
+		 UselessWordsList.add("\\b"+"sr"+"\\b");   
+		 UselessWordsList.add("\\b"+"one"+"\\b");   
+		 UselessWordsList.add("\\b"+"all"+"\\b");  
+		 UselessWordsList.add("\\b"+"no"+"\\b");   
+		 UselessWordsList.add("\\b"+"not"+"\\b");   
+		 UselessWordsList.add("\\b"+"some"+"\\b");   
+		 UselessWordsList.add("\\b"+"really"+"\\b"); 
+		 UselessWordsList.add("\\b"+"more"+"\\b");  
+		 UselessWordsList.add("\\b"+"only"+"\\b");  
+		 UselessWordsList.add("\\b"+"much"+"\\b");  
+		 UselessWordsList.add("\\b"+"been"+"\\b");  
+		 UselessWordsList.add("\\b"+"good"+"\\b");  
+		 UselessWordsList.add("\\b"+"how"+"\\b");   
+		 UselessWordsList.add("\\b"+"first"+"\\b");   
+		 UselessWordsList.add("\\b"+"other"+"\\b");   
+		 UselessWordsList.add("\\b"+"too"+"\\b");   
+		 UselessWordsList.add("\\b"+"way"+"\\b");  
 	}
 
 	public static void main(String[] args) {
