@@ -12,149 +12,8 @@ public class convertToArff {
 	
 	private static ArrayList<String> UselessWordsList = new ArrayList<String>();
 	
-	private static ArrayList<String> POSwords = new ArrayList<String>();
-	private static ArrayList<String> NEGwords = new ArrayList<String>();
-	
-	private static void loadReviews(String directory, boolean positive) throws IOException{
-		
-		File dir = new File(directory);
-		File[] files = dir.listFiles();
-		
-		for (File f: files){
-			if(f.isFile()){
-				
-				BufferedReader inputStream = null;
-				String text = "";
-				
-				try{
-					inputStream = new BufferedReader(new FileReader(f));
-					String line;
-					
-					while ((line = inputStream.readLine()) != null) {
-	
-						text += line;
-                    }
-				}
-				finally{
-					  if (inputStream != null) {
-	                      inputStream.close();
-	                    }
-				}
-				if(positive == true){
-					POSreviews.add(text);
-				}
-				if(positive == false){
-					NEGreviews.add(text);
-				}
-				
-			}
-		}
-		
-	}
-	
-	private static void removeUseless(){
-
-		for(int i=0; i<POSreviews.size(); i++){
-				
-			//convert to lower case
-			POSreviews.set(i, POSreviews.get(i).toLowerCase());
-			NEGreviews.set(i, NEGreviews.get(i).toLowerCase());
-			
-			//Remove numbers
-			POSreviews.set(i, POSreviews.get(i).replaceAll("0", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("1", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("2", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("3", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("4", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("5", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("6", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("7", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("8", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("9", ""));
-			
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("0", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("1", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("2", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("3", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("4", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("5", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("6", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("7", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("8", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("9", ""));
-			
-			//Remove Others
-			POSreviews.set(i, POSreviews.get(i).replaceAll("<br />", " "));
-			
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("<br />", " "));
-			
-			//Remove special characters
-			POSreviews.set(i, POSreviews.get(i).replaceAll("\"", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("'", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("[.]", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll(",", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll(":", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll(";", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("|", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("[(]", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("[)]", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("[\\[]", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("[\\]]", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("\\{", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("\\}", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("/", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("[?]", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("!", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("@", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("#", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("$", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("%", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("^", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("&", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("[*]", ""));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("-", " "));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("_", " "));
-			POSreviews.set(i, POSreviews.get(i).replaceAll("<", " "));
-			POSreviews.set(i, POSreviews.get(i).replaceAll(">", " "));
-			
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("\"", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("'", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[.]", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll(",", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll(":", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll(";", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("|", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[(]", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[)]", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[\\[]", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[\\]]", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("\\{", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("\\}", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("/", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[?]", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("!", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("@", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("#", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("$", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("%", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("^", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("&", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[*]", ""));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("-", " "));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("_", " "));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("<", " "));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll(">", " "));
-			
-			for(String s: UselessWordsList){
-				
-				POSreviews.set(i, POSreviews.get(i).replaceAll(s, ""));
-				
-				NEGreviews.set(i, NEGreviews.get(i).replaceAll(s, ""));
-			}
-			
-		}
-
-	}
+	private static ArrayList<String[]> POSwords = new ArrayList<String[]>();
+	private static ArrayList<String[]> NEGwords = new ArrayList<String[]>();
 	
 	private static void UselessWords(){
 		
@@ -475,7 +334,185 @@ public class convertToArff {
 		 UselessWordsList.add("\\b"+"too"+"\\b");   
 		 UselessWordsList.add("\\b"+"way"+"\\b");  
 	}
+	
+	private static void loadReviews(String directory, boolean positive) throws IOException{
+		
+		File dir = new File(directory);
+		File[] files = dir.listFiles();
+		
+		for (File f: files){
+			if(f.isFile()){
+				
+				BufferedReader inputStream = null;
+				String text = "";
+				
+				try{
+					inputStream = new BufferedReader(new FileReader(f));
+					String line;
+					
+					while ((line = inputStream.readLine()) != null) {
+	
+						text += line;
+                    }
+				}
+				finally{
+					  if (inputStream != null) {
+	                      inputStream.close();
+	                    }
+				}
+				if(positive == true){
+					POSreviews.add(text);
+				}
+				if(positive == false){
+					NEGreviews.add(text);
+				}
+				
+			}
+		}
+		
+	}
+	
+	private static void removeUseless(){
 
+		System.out.println("-> Removing useless words from positive reviews");
+		
+		for(int i=0; i<POSreviews.size(); i++){
+				
+			//convert to lower case
+			POSreviews.set(i, POSreviews.get(i).toLowerCase());
+			
+			//Remove numbers
+			POSreviews.set(i, POSreviews.get(i).replaceAll("0", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("1", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("2", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("3", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("4", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("5", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("6", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("7", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("8", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("9", ""));
+			
+			//Remove Others
+			POSreviews.set(i, POSreviews.get(i).replaceAll("<br />", " "));
+			
+			//Remove special characters
+			POSreviews.set(i, POSreviews.get(i).replaceAll("\"", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("'", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("[.]", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll(",", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll(":", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll(";", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("|", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("[(]", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("[)]", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("[\\[]", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("[\\]]", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("\\{", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("\\}", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("/", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("[?]", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("!", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("@", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("#", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("$", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("%", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("^", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("&", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("[*]", ""));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("-", " "));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("_", " "));
+			POSreviews.set(i, POSreviews.get(i).replaceAll("<", " "));
+			POSreviews.set(i, POSreviews.get(i).replaceAll(">", " "));
+			
+			for(String s: UselessWordsList){
+				
+				POSreviews.set(i, POSreviews.get(i).replaceAll(s, ""));
+			}
+			
+		}
+		
+
+		System.out.println("-> Ok.");
+		
+
+		System.out.println("-> Removing useless words from negative reviews");
+		
+		for(int i=0; i<NEGreviews.size(); i++){
+			
+			
+			//convert to lower case
+			NEGreviews.set(i, NEGreviews.get(i).toLowerCase());
+			
+			//Remove numbers
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("0", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("1", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("2", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("3", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("4", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("5", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("6", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("7", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("8", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("9", ""));
+			
+			//Remove Others
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("<br />", " "));
+			
+			//Remove special characters
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("\"", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("'", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[.]", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll(",", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll(":", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll(";", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("|", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[(]", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[)]", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[\\[]", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[\\]]", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("\\{", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("\\}", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("/", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[?]", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("!", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("@", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("#", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("$", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("%", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("^", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("&", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[*]", ""));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("-", " "));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("_", " "));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("<", " "));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll(">", " "));
+			
+			
+			for(String s: UselessWordsList){
+				
+				NEGreviews.set(i, NEGreviews.get(i).replaceAll(s, ""));
+			}
+		}
+
+		System.out.println("-> Ok.");
+	}
+	
+	private static void convertToVector(){
+		
+		System.out.println("-> Converting positive reviews's words to vector");
+		for(int i=0; i<POSreviews.size(); i++){
+			POSwords.set(i, POSreviews.get(i).split(" "));
+		}
+		System.out.println("-> Ok.");
+		
+		System.out.println("-> Converting negative reviews's words to vector");
+		for(int i=0; i<NEGreviews.size(); i++){
+			NEGwords.set(i, NEGreviews.get(i).split(" "));
+		}
+		System.out.println("-> Ok.");
+	}
+	
 	public static void main(String[] args) {
 
 		System.out.println("Loading...\n");
@@ -514,9 +551,18 @@ public class convertToArff {
 		
 		removeUseless();
 		
-		System.out.println("Ok.\n");
+		convertToVector();
 		
-		System.out.println(POSreviews.get(10)+"\n");
+		//System.out.println(POSreviews.get(10)+"\n");
+		String x = "";
+		for(int i=0; i<POSwords.size(); i++){
+			for(int y=0; y<POSwords.get(i).length; y++){
+				x = POSwords.get(i)[y];
+				System.out.println(x);
+			}
+		}
+		
+		System.out.println("Ok.\n");
 	}
 
 }
