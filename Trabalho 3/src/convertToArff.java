@@ -2,8 +2,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class convertToArff {
 
@@ -548,38 +549,45 @@ public class convertToArff {
 		*/
 		System.out.println("-> Calculating top 100 positive words");
 		
-		ArrayList<String> aux = new ArrayList<String>();
-		aux = allPOSwords;
+		ArrayList<String> auxPOS = new ArrayList<String>();
+		auxPOS = allPOSwords;
+
+		int contPOS = 0;
 		
-		ArrayList<stringCont> wordsCont = new ArrayList<stringCont>();
 		
-		int cont = 0;
-		stringCont auxCont = new stringCont();
+		ArrayList<stringCont> wordsContPOS = new ArrayList<stringCont>();
 		
-		auxCont.cont = 0;
-		auxCont.string = "";
-		
-		for(String s: allPOSwords){
+		for(int j=0; j<allPOSwords.size(); j++){
 			
-			cont = 0;
-			auxCont.cont = 0;
-			auxCont.string = "";
+			contPOS = 0;
 			
-			for(int i=0; i<aux.size(); i++ ){
-				if(s == aux.get(i)){
-					cont++;
+			for(int i=0; i<auxPOS.size(); i++ ){
+				if(allPOSwords.get(j).equals(auxPOS.get(i))){
+					contPOS++;
 				}
 			}
 			
-			auxCont.cont = cont;
-			auxCont.string = s;
-			if(!wordsCont.contains(auxCont))
-				wordsCont.add(auxCont);
+			wordsContPOS.add(new stringCont(allPOSwords.get(j), contPOS/2));
 		}
 		
-		for(int i=0; i<wordsCont.size();i++){
-			System.out.println("Palavra: "+wordsCont.get(i).string+" - Quantidade: "+wordsCont.get(i).cont);
+		/*
+		 * SOCORRO EM NOME DE DEUS PAI TODO PODEROSO!
+		 */
+		
+		int max = Integer.MIN_VALUE;
+		for(int i=0; i<wordsContPOS.size(); i++){
+	        if(wordsContPOS.get(i).cont > max){
+	            max = wordsContPOS.get(i).cont;
+	        }
+	    }
+		System.out.println(max);
+		
+		/*
+		for(int i=0; i<wordsContPOS.size();i++){
+			System.out.println("Palavra: "+wordsContPOS.get(i).string+" - Quantidade: "+wordsContPOS.get(i).cont);
 		}
+		*/
+		
 		
 		System.out.println("-> Ok.");
 		System.out.println("-> Calculating top 100 negative words");
