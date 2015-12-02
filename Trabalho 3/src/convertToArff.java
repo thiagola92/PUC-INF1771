@@ -573,7 +573,7 @@ public class convertToArff {
 			
 			auxCont.cont = cont;
 			auxCont.string = s;
-			//if(!wordsCont.contains(auxCont))
+			if(!wordsCont.contains(auxCont))
 				wordsCont.add(auxCont);
 		}
 		
