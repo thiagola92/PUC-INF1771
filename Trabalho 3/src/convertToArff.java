@@ -17,9 +17,9 @@ public class convertToArff {
 	private static void UselessWords() {
 
 		// Articles
-		UselessWordsList.add("\\b" + "a" + "\\b" + "\\b");
-		UselessWordsList.add("\\b" + "an" + "\\b" + "\\b");
-		UselessWordsList.add("\\b" + "the" + "\\b" + "\\b");
+		UselessWordsList.add("\\b" + "a" + "\\b");
+		UselessWordsList.add("\\b" + "an" + "\\b");
+		UselessWordsList.add("\\b" + "the" + "\\b");
 
 		// Adverbs of manner
 		UselessWordsList.add("\\b" + "carefully" + "\\b");
@@ -495,18 +495,26 @@ public class convertToArff {
 
 		System.out.println("-> Converting positive reviews's words to vector");
 		for (int i = 0; i < POSreviews.size(); i++) {
+			
+			POSreviews.set(i, POSreviews.get(i).replaceAll("( )+", " "));
+			
 			POSwords.add(POSreviews.get(i).split(" "));
 			for (int j = 0; j < POSwords.get(i).length; j++) {
 				POSwords.get(i)[j].replaceAll(" ", "");
+				POSwords.get(i)[j].replaceAll("\n", "");
 			}
 		}
 		System.out.println("-> Ok.");
 
 		System.out.println("-> Converting negative reviews's words to vector");
-		for (int i = 0; i < NEGreviews.size(); i++) {
+		for (int i = 0; i < NEGreviews.size(); i++){
+			
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("( )+", " "));
+			
 			NEGwords.add(NEGreviews.get(i).split(" "));
 			for (int j = 0; j < NEGwords.get(i).length; j++) {
-				NEGwords.get(i)[j].replaceAll(" ", "");
+				NEGwords.get(i)[j].replaceAll(" ", "").trim();
+				NEGwords.get(i)[j].replaceAll("\n", "");
 			}
 		}
 		System.out.println("-> Ok.");
@@ -518,25 +526,25 @@ public class convertToArff {
 		UselessWords();
 
 		try {
-			loadReviews("src/movie_review_dataset/part1/neg", false);
+			loadReviews("src/teste/part1/neg", false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			loadReviews("src/movie_review_dataset/part2/neg", false);
+			loadReviews("src/teste/part2/neg", false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			loadReviews("src/movie_review_dataset/part1/pos", true);
+			loadReviews("src/teste/part1/pos", true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			loadReviews("src/movie_review_dataset/part2/pos", true);
+			loadReviews("src/teste/part2/pos", true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -544,7 +552,7 @@ public class convertToArff {
 
 		System.out.println("Ok.\n");
 
-		System.out.println("Test example:\n" + POSreviews.get(10) + "\n");
+		System.out.println("Test example:\n" + POSreviews.get(1) + "\n");
 
 		System.out.println("Processing...\n");
 
@@ -556,8 +564,8 @@ public class convertToArff {
 		System.out.println("Test example result:\n");
 
 		String x = "";
-		for (int y = 0; y < POSwords.get(10).length; y++) {
-			x = POSwords.get(10)[y];
+		for (int y = 0; y < POSwords.get(1).length; y++) {
+			x = POSwords.get(1)[y];
 			System.out.println(x);
 		}
 
