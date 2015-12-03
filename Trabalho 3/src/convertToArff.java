@@ -333,6 +333,9 @@ public class convertToArff {
 		UselessWordsList.add("\\b" + "other" + "\\b");
 		UselessWordsList.add("\\b" + "too" + "\\b");
 		UselessWordsList.add("\\b" + "way" + "\\b");
+		
+		//Others
+		UselessWordsList.add("\\b" + "s" + "\\b");
 	}
 
 	private static void loadReviews(String directory, boolean positive) throws IOException {
@@ -394,7 +397,7 @@ public class convertToArff {
 
 			// Remove Others
 			POSreviews.set(i, POSreviews.get(i).replaceAll("<br />", " "));
-
+			POSreviews.set(i, POSreviews.get(i).replaceAll("\n", " "));
 			// Remove special characters
 			POSreviews.set(i, POSreviews.get(i).replaceAll("\"", " "));
 			POSreviews.set(i, POSreviews.get(i).replaceAll("'", " "));
@@ -454,10 +457,11 @@ public class convertToArff {
 
 			// Remove Others
 			NEGreviews.set(i, NEGreviews.get(i).replaceAll("<br />", " "));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("\n", " "));
 
 			// Remove special characters
 			NEGreviews.set(i, NEGreviews.get(i).replaceAll("\"", " "));
-			NEGreviews.set(i, NEGreviews.get(i).replaceAll("'", " "));
+			NEGreviews.set(i, NEGreviews.get(i).replaceAll("'", ""));
 			NEGreviews.set(i, NEGreviews.get(i).replaceAll("[.]", " "));
 			NEGreviews.set(i, NEGreviews.get(i).replaceAll(",", " "));
 			NEGreviews.set(i, NEGreviews.get(i).replaceAll(":", " "));
@@ -568,19 +572,53 @@ public class convertToArff {
 			}
 			
 			wordsContPOS.add(new stringCont(allPOSwords.get(j), contPOS/2));
+			//System.out.println(wordsContPOS.get(j).string+" - "+wordsContPOS.get(j).cont);
 		}
 		
-		/*
-		 * SOCORRO EM NOME DE DEUS PAI TODO PODEROSO!
-		 */
+	
+		/* Adiciona no vetor com as palavras que mais aparecem. */
+		int top_n_words = 5;
 		
-		int max = Integer.MIN_VALUE;
-		for(int i=0; i<wordsContPOS.size(); i++){
-	        if(wordsContPOS.get(i).cont > max){
-	            max = wordsContPOS.get(i).cont;
-	        }
-	    }
-		System.out.println(max);
+		stringCont topStringsVector[] = new stringCont[top_n_words];
+		
+		for(int i = 0; i < top_n_words; i++){
+			topStringsVector[i] = new stringCont("", 0);
+		}
+		
+		int menor_do_vetor = 0;
+		
+		for(int i = 0; i < wordsContPOS.size(); i++) {
+			
+			if (wordsContPOS.get(i).cont > topStringsVector[menor_do_vetor].cont){
+				
+				int j;
+				for(j = 0; j < top_n_words; j++) {
+					
+					if (wordsContPOS.get(i).string.equals(topStringsVector[j].string)) {
+						 break;
+					}
+				}
+				
+				if ( j == top_n_words ){
+					topStringsVector[menor_do_vetor] = wordsContPOS.get(i);
+				}
+				
+				int menor = topStringsVector[0].cont;
+				menor_do_vetor = 0;
+				for(int w = 1; w < top_n_words; w++) {
+					if (menor > topStringsVector[w].cont) {
+						menor_do_vetor = w;
+						menor = topStringsVector[w].cont;
+					}
+				}
+			}
+		}
+		
+		for(int i=0; i<topStringsVector.length; i++){
+			System.out.println("String: "+topStringsVector[i].string+" - number: "+topStringsVector[i].cont);
+		}
+		
+		//topStringsVector[0] = new stringCont("öi", 3);
 		
 		/*
 		for(int i=0; i<wordsContPOS.size();i++){
