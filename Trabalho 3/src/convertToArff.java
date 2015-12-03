@@ -3,8 +3,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class convertToArff {
 
@@ -382,6 +380,8 @@ public class convertToArff {
 
 		System.out.println("-> Removing useless words from positive reviews");
 
+		int auxPercent = 0;
+		int auxPercentAnt = 0;
 		for (int i = 0; i < POSreviews.size(); i++) {
 			
 			// convert to lower case
@@ -435,13 +435,20 @@ public class convertToArff {
 
 				POSreviews.set(i, POSreviews.get(i).replaceAll(s, " "));
 			}
-
+			auxPercent = i*100/POSreviews.size();
+			if(auxPercentAnt!=auxPercent){
+				
+				auxPercentAnt = auxPercent;
+				System.out.println("Calculando... "+auxPercent+"%");
+			}
 		}
 
 		System.out.println("-> Ok.");
 
 		System.out.println("-> Removing useless words from negative reviews");
 
+		auxPercent = auxPercentAnt = 0;
+		
 		for (int i = 0; i < NEGreviews.size(); i++) {
 
 			// convert to lower case
@@ -496,6 +503,13 @@ public class convertToArff {
 
 				NEGreviews.set(i, NEGreviews.get(i).replaceAll(s, " "));
 			}
+			
+			auxPercent = i*100/POSreviews.size();
+			if(auxPercentAnt!=auxPercent){
+				
+				auxPercentAnt = auxPercent;
+				System.out.println("Calculando... "+auxPercent+"%");
+			}
 		}
 
 		System.out.println("-> Ok.");
@@ -537,6 +551,9 @@ public class convertToArff {
 		
 		System.out.println("-> Joining all positive words on a list.");
 		
+		int auxPercent = 0;
+		int auxPercentAnt = 0;
+		
 		for(String[] s: POSwords){
 			for(int i=0; i<s.length; i++){
 				allPOSwords.add(s[i]);
@@ -571,6 +588,14 @@ public class convertToArff {
 			}
 			
 			wordsContPOS.add(new stringCont(allPOSwords.get(j), contPOS/2));
+			
+			
+			auxPercent = j*100/allPOSwords.size();
+			if(auxPercentAnt!=auxPercent){
+				
+				auxPercentAnt = auxPercent;
+				System.out.println("Calculando... "+auxPercent+"%");
+			}
 		}
 		
 	
@@ -624,7 +649,7 @@ public class convertToArff {
 
 		System.out.println("Loading...\n");
 		UselessWords();
-
+		/*
 		try {
 			loadReviews("src/movie_review_dataset/part1/neg", false);
 		} catch (IOException e) {
@@ -637,19 +662,20 @@ public class convertToArff {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		try {
 			loadReviews("src/movie_review_dataset/part1/pos", true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}/*
 		try {
 			loadReviews("src/movie_review_dataset/part2/pos", true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		 */
 		System.out.println("Ok.\n");
 
 		System.out.println("Test example:\n" + POSreviews.get(1) + "\n");
