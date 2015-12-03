@@ -16,7 +16,8 @@ public class convertToArff {
 
 	private static int top_n_words = 100;
 	
-	private static stringCont topStringsVector[] = new stringCont[top_n_words];
+	private static stringCont topStringsVectorPOS[] = new stringCont[top_n_words];
+	private static stringCont topStringsVectorNEG[] = new stringCont[top_n_words];
 	
 	private static void UselessWords() {
 
@@ -567,7 +568,7 @@ public class convertToArff {
 				allNEGwords.add(s[i]);
 			}
 		}
-		System.out.println("-> Calculating top 100 positive words");
+		System.out.println("-> Calculating how many times positive words occurs");
 		
 		ArrayList<String> auxPOS = new ArrayList<String>();
 		auxPOS = allPOSwords;
@@ -600,9 +601,11 @@ public class convertToArff {
 		
 	
 		/* Adiciona no vetor com as palavras que mais aparecem. */
+
+		System.out.println("-> Calculating top 100 positive words");
 		
 		for(int i = 0; i < top_n_words; i++){
-			topStringsVector[i] = new stringCont("", 0);
+			topStringsVectorPOS[i] = new stringCont("", 0);
 		}
 		
 		int menor_do_vetor = 0;
@@ -611,33 +614,40 @@ public class convertToArff {
 		
 		for(int i = 0; i < wordsContPOS.size(); i++) {
 			
-			if (wordsContPOS.get(i).cont > topStringsVector[menor_do_vetor].cont){
+			if (wordsContPOS.get(i).cont > topStringsVectorPOS[menor_do_vetor].cont){
 				
 				int j;
 				for(j = 0; j < top_n_words; j++) {
 					
-					if (wordsContPOS.get(i).string.equals(topStringsVector[j].string)) {
+					if (wordsContPOS.get(i).string.equals(topStringsVectorPOS[j].string)) {
 						 break;
 					}
 				}
 				
 				if ( j == top_n_words ){
-					topStringsVector[menor_do_vetor] = wordsContPOS.get(i);
+					topStringsVectorPOS[menor_do_vetor] = wordsContPOS.get(i);
 				}
 				
-				int menor = topStringsVector[0].cont;
+				int menor = topStringsVectorPOS[0].cont;
 				menor_do_vetor = 0;
 				for(int w = 1; w < top_n_words; w++) {
-					if (menor > topStringsVector[w].cont) {
+					if (menor > topStringsVectorPOS[w].cont) {
 						menor_do_vetor = w;
-						menor = topStringsVector[w].cont;
+						menor = topStringsVectorPOS[w].cont;
 					}
 				}
 			}
+			
+			auxPercent = i*100/wordsContPOS.size();
+			if(auxPercentAnt!=auxPercent){
+				
+				auxPercentAnt = auxPercent;
+				System.out.println("Calculando... "+auxPercent+"%");
+			}
 		}
 		
-		for(int i=0; i<topStringsVector.length; i++){
-			System.out.println("String: "+topStringsVector[i].string+" - number: "+topStringsVector[i].cont);
+		for(int i=0; i<topStringsVectorPOS.length; i++){
+			System.out.println("String: "+topStringsVectorPOS[i].string+" - number: "+topStringsVectorPOS[i].cont);
 		}
 		
 		System.out.println("-> Ok.");
