@@ -16,6 +16,10 @@ public class convertToArff {
 	private static ArrayList<String[]> POSwords = new ArrayList<String[]>();
 	private static ArrayList<String[]> NEGwords = new ArrayList<String[]>();
 
+	private static int top_n_words = 100;
+	
+	private static stringCont topStringsVector[] = new stringCont[top_n_words];
+	
 	private static void UselessWords() {
 
 		// Articles
@@ -546,11 +550,6 @@ public class convertToArff {
 				allNEGwords.add(s[i]);
 			}
 		}
-		/*
-		for(int i=0; i<allPOSwords.size();i++){
-			System.out.println(allPOSwords.get(i));
-		}
-		*/
 		System.out.println("-> Calculating top 100 positive words");
 		
 		ArrayList<String> auxPOS = new ArrayList<String>();
@@ -572,20 +571,18 @@ public class convertToArff {
 			}
 			
 			wordsContPOS.add(new stringCont(allPOSwords.get(j), contPOS/2));
-			//System.out.println(wordsContPOS.get(j).string+" - "+wordsContPOS.get(j).cont);
 		}
 		
 	
 		/* Adiciona no vetor com as palavras que mais aparecem. */
-		int top_n_words = 5;
-		
-		stringCont topStringsVector[] = new stringCont[top_n_words];
 		
 		for(int i = 0; i < top_n_words; i++){
 			topStringsVector[i] = new stringCont("", 0);
 		}
 		
 		int menor_do_vetor = 0;
+		
+		System.out.println("-> Alocating top 100 positive words");
 		
 		for(int i = 0; i < wordsContPOS.size(); i++) {
 			
@@ -618,15 +615,6 @@ public class convertToArff {
 			System.out.println("String: "+topStringsVector[i].string+" - number: "+topStringsVector[i].cont);
 		}
 		
-		//topStringsVector[0] = new stringCont("öi", 3);
-		
-		/*
-		for(int i=0; i<wordsContPOS.size();i++){
-			System.out.println("Palavra: "+wordsContPOS.get(i).string+" - Quantidade: "+wordsContPOS.get(i).cont);
-		}
-		*/
-		
-		
 		System.out.println("-> Ok.");
 		System.out.println("-> Calculating top 100 negative words");
 		System.out.println("-> Ok.");
@@ -638,25 +626,25 @@ public class convertToArff {
 		UselessWords();
 
 		try {
-			loadReviews("src/teste/part1/neg", false);
+			loadReviews("src/movie_review_dataset/part1/neg", false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			loadReviews("src/teste/part2/neg", false);
+			loadReviews("src/movie_review_dataset/part2/neg", false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			loadReviews("src/teste/part1/pos", true);
+			loadReviews("src/movie_review_dataset/part1/pos", true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			loadReviews("src/teste/part2/pos", true);
+			loadReviews("src/movie_review_dataset/part2/pos", true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
