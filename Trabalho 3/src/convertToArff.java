@@ -1,8 +1,14 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class convertToArff {
 
@@ -339,6 +345,12 @@ public class convertToArff {
 
 		// Others
 		UselessWordsList.add("\\b" + "s" + "\\b");
+		UselessWordsList.add("\\b" + "d" + "\\b");
+		UselessWordsList.add("\\b" + "t" + "\\b");
+		UselessWordsList.add("\\b" + "ve" + "\\b");
+		UselessWordsList.add("\\b" + "re" + "\\b");
+		UselessWordsList.add("\\b" + "m" + "\\b");
+		UselessWordsList.add("\\b" + "\n" + "\\b");
 	}
 
 	private static void loadReviews(String directory, boolean positive) throws IOException {
@@ -568,72 +580,63 @@ public class convertToArff {
 				allNEGwords.add(s[i]);
 			}
 		}
-		
-		System.out.println("-> Calculating how many times positive words occurs");
-
-		ArrayList<String> auxPOS = new ArrayList<String>();
-		auxPOS = allPOSwords;
 
 		int contPOS = 0;
+		int contNEG = 0;
 		int menor_do_vetor = 0;
 
 		ArrayList<stringCont> wordsContPOS = new ArrayList<stringCont>();
 		ArrayList<stringCont> wordsContNEG = new ArrayList<stringCont>();
-
-		for (int j = 0; j < allPOSwords.size(); j++) {
-
-			contPOS = 0;
-
-			for (int i = 0; i < auxPOS.size(); i++) {
-				if (allPOSwords.get(j).equals(auxPOS.get(i))) {
-					contPOS++;
-				}
-			}
-
-			wordsContPOS.add(new stringCont(allPOSwords.get(j), contPOS));
-
-			auxPercent = j * 100 / allPOSwords.size();
+		
+		/********************************************************************************/
+		
+		System.out.println("-> Calculating how many times positive words occurs");
+		
+		/********************************************************************************/
+		
+		Set<String> hashPOS = new HashSet<String>(allPOSwords);
+		
+		contPOS=0;
+		for (String key : hashPOS) {
+			
+			wordsContPOS.add(new stringCont(key, Collections.frequency(allPOSwords, key)));
+			
+		    contPOS++;
+		    
+		    auxPercent = contPOS * 100 / hashPOS.size();
 			if (auxPercentAnt != auxPercent) {
 
 				auxPercentAnt = auxPercent;
 				System.out.println("Calculando... " + auxPercent + "%");
 			}
+			
 		}
-
 		
+		/********************************************************************************/
 		
 		System.out.println("-> Calculating how many times negative words occurs");
-
-		ArrayList<String> auxNEG = new ArrayList<String>();
-		auxNEG = allNEGwords;
-
-		int contNEG = 0;
-		menor_do_vetor = 0;
-
-		for (int j = 0; j < allNEGwords.size(); j++) {
-
-			contNEG = 0;
-
-			for (int i = 0; i < auxNEG.size(); i++) {
-				if (allNEGwords.get(j).equals(auxNEG.get(i))) {
-					contNEG++;
-				}
-			}
-
-			wordsContNEG.add(new stringCont(allNEGwords.get(j), contNEG));
-
-			auxPercent = j * 100 / allNEGwords.size();
+		
+		/********************************************************************************/
+		
+		Set<String> hashNEG = new HashSet<String>(allPOSwords);
+		
+		contNEG=0;
+		for (String key : hashNEG) {
+		    
+			wordsContNEG.add(new stringCont(key, Collections.frequency(allNEGwords, key)));
+			
+		    contNEG++;
+		    
+		    auxPercent = contNEG * 100 / hashNEG.size();
 			if (auxPercentAnt != auxPercent) {
 
 				auxPercentAnt = auxPercent;
 				System.out.println("Calculando... " + auxPercent + "%");
 			}
+			
 		}
-		/*
-		for(int i=0; i<wordsContNEG.size(); i++){
-			System.out.println(wordsContNEG.get(i).string+" "+wordsContNEG.get(i).cont);
-		}
-		*/	
+		
+		/*******************************************************************************/
 		
 		/* Adiciona no vetor com as palavras que mais aparecem. */
 
@@ -688,7 +691,7 @@ public class convertToArff {
 		/* Adiciona no vetor com as palavras que mais aparecem. */
 
 		System.out.println("-> Calculating top 100 negative words");
-
+		
 		for (int i = 0; i < top_n_words; i++) {
 			topStringsVectorNEG[i] = new stringCont("", 0);
 		}
@@ -734,24 +737,44 @@ public class convertToArff {
 			System.out
 					.println("String: " + topStringsVectorNEG[i].string + " - number: " + topStringsVectorNEG[i].cont);
 		}
-
+		
 		System.out.println("-> Ok.");
 	}
 
+	private static void createArff(){
+		
+		PrintWriter writer = null;
+		
+		
+		
+		try {
+			writer = new PrintWriter("src/output/the-file-name.arff", "UTF-8");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		writer.println("The first line");
+		writer.println("The second line");
+		writer.close();
+	}
+	
 	public static void main(String[] args) {
 
 		System.out.println("Loading...\n");
 		UselessWords();
 
 		try {
-			loadReviews("src/movie_review_dataset/part1/neg", false);
+			loadReviews("src/teste/part1/neg", false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		try {
-			loadReviews("src/movie_review_dataset/part1/pos", true);
+			loadReviews("src/teste/part1/pos", true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -781,8 +804,10 @@ public class convertToArff {
 
 		System.out.println("Ok.\n");
 
-		System.out.println("Creating .arff...\n");
+		System.out.println("Generating .arff...\n");
 
+		createArff();
+		
 		System.out.println(".arff created. Location: \nEnd.");
 	}
 
