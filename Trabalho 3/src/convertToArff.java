@@ -15,10 +15,10 @@ public class convertToArff {
 	private static ArrayList<String[]> NEGwords = new ArrayList<String[]>();
 
 	private static int top_n_words = 100;
-	
+
 	private static stringCont topStringsVectorPOS[] = new stringCont[top_n_words];
 	private static stringCont topStringsVectorNEG[] = new stringCont[top_n_words];
-	
+
 	private static void UselessWords() {
 
 		// Articles
@@ -336,8 +336,8 @@ public class convertToArff {
 		UselessWordsList.add("\\b" + "other" + "\\b");
 		UselessWordsList.add("\\b" + "too" + "\\b");
 		UselessWordsList.add("\\b" + "way" + "\\b");
-		
-		//Others
+
+		// Others
 		UselessWordsList.add("\\b" + "s" + "\\b");
 	}
 
@@ -384,7 +384,7 @@ public class convertToArff {
 		int auxPercent = 0;
 		int auxPercentAnt = 0;
 		for (int i = 0; i < POSreviews.size(); i++) {
-			
+
 			// convert to lower case
 			POSreviews.set(i, POSreviews.get(i).toLowerCase());
 
@@ -436,11 +436,11 @@ public class convertToArff {
 
 				POSreviews.set(i, POSreviews.get(i).replaceAll(s, " "));
 			}
-			auxPercent = i*100/POSreviews.size();
-			if(auxPercentAnt!=auxPercent){
-				
+			auxPercent = i * 100 / POSreviews.size();
+			if (auxPercentAnt != auxPercent) {
+
 				auxPercentAnt = auxPercent;
-				System.out.println("Calculando... "+auxPercent+"%");
+				System.out.println("Calculando... " + auxPercent + "%");
 			}
 		}
 
@@ -449,7 +449,7 @@ public class convertToArff {
 		System.out.println("-> Removing useless words from negative reviews");
 
 		auxPercent = auxPercentAnt = 0;
-		
+
 		for (int i = 0; i < NEGreviews.size(); i++) {
 
 			// convert to lower case
@@ -504,12 +504,12 @@ public class convertToArff {
 
 				NEGreviews.set(i, NEGreviews.get(i).replaceAll(s, " "));
 			}
-			
-			auxPercent = i*100/POSreviews.size();
-			if(auxPercentAnt!=auxPercent){
-				
+
+			auxPercent = i * 100 / POSreviews.size();
+			if (auxPercentAnt != auxPercent) {
+
 				auxPercentAnt = auxPercent;
-				System.out.println("Calculando... "+auxPercent+"%");
+				System.out.println("Calculando... " + auxPercent + "%");
 			}
 		}
 
@@ -520,9 +520,9 @@ public class convertToArff {
 
 		System.out.println("-> Converting positive reviews's words to vector");
 		for (int i = 0; i < POSreviews.size(); i++) {
-			
+
 			POSreviews.set(i, POSreviews.get(i).replaceAll("( )+", " "));
-			
+
 			POSwords.add(POSreviews.get(i).split(" "));
 			for (int j = 0; j < POSwords.get(i).length; j++) {
 				POSwords.get(i)[j].replaceAll(" ", "");
@@ -532,10 +532,10 @@ public class convertToArff {
 		System.out.println("-> Ok.");
 
 		System.out.println("-> Converting negative reviews's words to vector");
-		for (int i = 0; i < NEGreviews.size(); i++){
-			
+		for (int i = 0; i < NEGreviews.size(); i++) {
+
 			NEGreviews.set(i, NEGreviews.get(i).replaceAll("( )+", " "));
-			
+
 			NEGwords.add(NEGreviews.get(i).split(" "));
 			for (int j = 0; j < NEGwords.get(i).length; j++) {
 				NEGwords.get(i)[j].replaceAll(" ", "").trim();
@@ -545,147 +545,217 @@ public class convertToArff {
 		System.out.println("-> Ok.");
 	}
 
-	private static void separatingMostRelevant(){
-		
+	private static void separatingMostRelevant() {
+
 		ArrayList<String> allPOSwords = new ArrayList<String>();
 		ArrayList<String> allNEGwords = new ArrayList<String>();
-		
-		System.out.println("-> Joining all positive words on a list.");
-		
+
 		int auxPercent = 0;
 		int auxPercentAnt = 0;
+
+		System.out.println("-> Joining all positive words on a list.");
 		
-		for(String[] s: POSwords){
-			for(int i=0; i<s.length; i++){
+		for (String[] s : POSwords) {
+			for (int i = 0; i < s.length; i++) {
 				allPOSwords.add(s[i]);
 			}
 		}
-		
+
 		System.out.println("-> Joining all negative words on a list.");
-		
-		for(String[] s: NEGwords){
-			for(int i=0; i<s.length; i++){
+
+		for (String[] s : NEGwords) {
+			for (int i = 0; i < s.length; i++) {
 				allNEGwords.add(s[i]);
 			}
 		}
-		System.out.println("-> Calculating how many times positive words occurs");
 		
+		System.out.println("-> Calculating how many times positive words occurs");
+
 		ArrayList<String> auxPOS = new ArrayList<String>();
 		auxPOS = allPOSwords;
 
 		int contPOS = 0;
-		
-		
+		int menor_do_vetor = 0;
+
 		ArrayList<stringCont> wordsContPOS = new ArrayList<stringCont>();
-		
-		for(int j=0; j<allPOSwords.size(); j++){
-			
+		ArrayList<stringCont> wordsContNEG = new ArrayList<stringCont>();
+
+		for (int j = 0; j < allPOSwords.size(); j++) {
+
 			contPOS = 0;
-			
-			for(int i=0; i<auxPOS.size(); i++ ){
-				if(allPOSwords.get(j).equals(auxPOS.get(i))){
+
+			for (int i = 0; i < auxPOS.size(); i++) {
+				if (allPOSwords.get(j).equals(auxPOS.get(i))) {
 					contPOS++;
 				}
 			}
-			
-			wordsContPOS.add(new stringCont(allPOSwords.get(j), contPOS/2));
-			
-			
-			auxPercent = j*100/allPOSwords.size();
-			if(auxPercentAnt!=auxPercent){
-				
+
+			wordsContPOS.add(new stringCont(allPOSwords.get(j), contPOS));
+
+			auxPercent = j * 100 / allPOSwords.size();
+			if (auxPercentAnt != auxPercent) {
+
 				auxPercentAnt = auxPercent;
-				System.out.println("Calculando... "+auxPercent+"%");
+				System.out.println("Calculando... " + auxPercent + "%");
 			}
 		}
+
 		
-	
+		
+		System.out.println("-> Calculating how many times negative words occurs");
+
+		ArrayList<String> auxNEG = new ArrayList<String>();
+		auxNEG = allNEGwords;
+
+		int contNEG = 0;
+		menor_do_vetor = 0;
+
+		for (int j = 0; j < allNEGwords.size(); j++) {
+
+			contNEG = 0;
+
+			for (int i = 0; i < auxNEG.size(); i++) {
+				if (allNEGwords.get(j).equals(auxNEG.get(i))) {
+					contNEG++;
+				}
+			}
+
+			wordsContNEG.add(new stringCont(allNEGwords.get(j), contNEG));
+
+			auxPercent = j * 100 / allNEGwords.size();
+			if (auxPercentAnt != auxPercent) {
+
+				auxPercentAnt = auxPercent;
+				System.out.println("Calculando... " + auxPercent + "%");
+			}
+		}
+		/*
+		for(int i=0; i<wordsContNEG.size(); i++){
+			System.out.println(wordsContNEG.get(i).string+" "+wordsContNEG.get(i).cont);
+		}
+		*/	
+		
 		/* Adiciona no vetor com as palavras que mais aparecem. */
 
 		System.out.println("-> Calculating top 100 positive words");
-		
-		for(int i = 0; i < top_n_words; i++){
+
+		for (int i = 0; i < top_n_words; i++) {
 			topStringsVectorPOS[i] = new stringCont("", 0);
 		}
-		
-		int menor_do_vetor = 0;
-		
-		System.out.println("-> Alocating top 100 positive words");
-		
-		for(int i = 0; i < wordsContPOS.size(); i++) {
-			
-			if (wordsContPOS.get(i).cont > topStringsVectorPOS[menor_do_vetor].cont){
-				
+
+		for (int i = 0; i < wordsContPOS.size(); i++) {
+
+			if (wordsContPOS.get(i).cont > topStringsVectorPOS[menor_do_vetor].cont) {
+
 				int j;
-				for(j = 0; j < top_n_words; j++) {
-					
+				for (j = 0; j < top_n_words; j++) {
+
 					if (wordsContPOS.get(i).string.equals(topStringsVectorPOS[j].string)) {
-						 break;
+						break;
 					}
 				}
-				
-				if ( j == top_n_words ){
+
+				if (j == top_n_words) {
 					topStringsVectorPOS[menor_do_vetor] = wordsContPOS.get(i);
 				}
-				
+
 				int menor = topStringsVectorPOS[0].cont;
 				menor_do_vetor = 0;
-				for(int w = 1; w < top_n_words; w++) {
+				for (int w = 1; w < top_n_words; w++) {
 					if (menor > topStringsVectorPOS[w].cont) {
 						menor_do_vetor = w;
 						menor = topStringsVectorPOS[w].cont;
 					}
 				}
 			}
-			
-			auxPercent = i*100/wordsContPOS.size();
-			if(auxPercentAnt!=auxPercent){
-				
+
+			auxPercent = i * 100 / wordsContPOS.size();
+			if (auxPercentAnt != auxPercent) {
+
 				auxPercentAnt = auxPercent;
-				System.out.println("Calculando... "+auxPercent+"%");
+				System.out.println("Calculando... " + auxPercent + "%");
 			}
 		}
-		
-		for(int i=0; i<topStringsVectorPOS.length; i++){
-			System.out.println("String: "+topStringsVectorPOS[i].string+" - number: "+topStringsVectorPOS[i].cont);
+
+		System.out.println("Top "+top_n_words+" positive words:");
+		for (int i = 0; i < topStringsVectorPOS.length; i++) {
+			System.out
+					.println("String: " + topStringsVectorPOS[i].string + " - number: " + topStringsVectorPOS[i].cont);
 		}
-		
+
 		System.out.println("-> Ok.");
+
+		/* Adiciona no vetor com as palavras que mais aparecem. */
+
 		System.out.println("-> Calculating top 100 negative words");
+
+		for (int i = 0; i < top_n_words; i++) {
+			topStringsVectorNEG[i] = new stringCont("", 0);
+		}
+
+		menor_do_vetor = 0;
+
+		for (int i = 0; i < wordsContNEG.size(); i++) {
+
+			if (wordsContNEG.get(i).cont > topStringsVectorNEG[menor_do_vetor].cont) {
+
+				int j;
+				for (j = 0; j < top_n_words; j++) {
+
+					if (wordsContNEG.get(i).string.equals(topStringsVectorNEG[j].string)) {
+						break;
+					}
+				}
+
+				if (j == top_n_words) {
+					topStringsVectorNEG[menor_do_vetor] = wordsContNEG.get(i);
+				}
+
+				int menor = topStringsVectorNEG[0].cont;
+				menor_do_vetor = 0;
+				for (int w = 1; w < top_n_words; w++) {
+					if (menor > topStringsVectorNEG[w].cont) {
+						menor_do_vetor = w;
+						menor = topStringsVectorNEG[w].cont;
+					}
+				}
+			}
+
+			auxPercent = i * 100 / wordsContNEG.size();
+			if (auxPercentAnt != auxPercent) {
+
+				auxPercentAnt = auxPercent;
+				System.out.println("Calculando... " + auxPercent + "%");
+			}
+		}
+
+		System.out.println("Top "+top_n_words+" negative words:");
+		for (int i = 0; i < topStringsVectorNEG.length; i++) {
+			System.out
+					.println("String: " + topStringsVectorNEG[i].string + " - number: " + topStringsVectorNEG[i].cont);
+		}
+
 		System.out.println("-> Ok.");
 	}
-	
+
 	public static void main(String[] args) {
 
 		System.out.println("Loading...\n");
 		UselessWords();
-		/*
+
 		try {
 			loadReviews("src/movie_review_dataset/part1/neg", false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			loadReviews("src/movie_review_dataset/part2/neg", false);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
+
 		try {
 			loadReviews("src/movie_review_dataset/part1/pos", true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}/*
-		try {
-			loadReviews("src/movie_review_dataset/part2/pos", true);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		 */
 		System.out.println("Ok.\n");
 
 		System.out.println("Test example:\n" + POSreviews.get(1) + "\n");
@@ -697,25 +767,22 @@ public class convertToArff {
 		convertToArray();
 
 		// System.out.println(POSreviews.get(10)+"\n");
-		System.out.println("Test example result:\n");
+		//System.out.println("Test example result:\n");
 
 		/*
-		String x = "";
-		for (int y = 0; y < POSwords.get(1).length; y++) {
-			x = POSwords.get(1)[y];
-			System.out.println(x);
-		}
+		 * String x = ""; for (int y = 0; y < POSwords.get(1).length; y++) { x =
+		 * POSwords.get(1)[y]; System.out.println(x); }
 		 */
 		System.out.println("\nOk.\n");
-		
+
 		System.out.println("Separating most relevant words...\n");
-		
+
 		separatingMostRelevant();
-	
+
 		System.out.println("Ok.\n");
-		
+
 		System.out.println("Creating .arff...\n");
-		
+
 		System.out.println(".arff created. Location: \nEnd.");
 	}
 
