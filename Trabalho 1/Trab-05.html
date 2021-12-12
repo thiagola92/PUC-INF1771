@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Trabalho IA</title>
+    
+    <script type="text/javascript" src="Codigo.js">
+    </script>
+
+</head>
+<body>
+
+    <!-- Todo o menu na esquerda que aparece na janela -->
+    <div style=" position: absolute; left: 40px; text-align: center;">
+        <button type="button" onclick="gerarMapaNaTela()">Gerar um novo mapa</button><br /><br />
+        <button type="button" onclick="f()">Executar A*</button><br /><br />
+
+        <b>Distancia: </b><i id="distancia"> </i> <br />
+        <b>Tempo: </b><i id="tempo"> </i> <br />
+        <b>Somatorio: </b><i id="somatorio"> </i> <br />
+        <b>Cavaleiros: </b><i id="cavaleiros"> </i>
+    </div>
+
+    <!-- Apenas o mapa -->
+    <div id="mapa" style="position:absolute; left: 270px;"> </div>
+ 
+</body>
+</html>
